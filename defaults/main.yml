@@ -1,0 +1,9 @@
+---
+
+# Default version of The Bastion
+# CHANGELOG : https://github.com/ovh/the-bastion/releases/tag/v3.13.01
+bastion_version: v3.13.01
+
+bastion_hostname: bastion
+bastion_admin: admin
+bastion_admin_ssh_pubkey: 

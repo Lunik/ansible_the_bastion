@@ -1,0 +1,22 @@
+---
+
+- name: 'Requirements | Check if user is root'
+  ansible.builtin.assert:
+    that:
+      - ansible_user_id == 'root'
+    fail_msg: 'You must be root to run this playbook.'
+    success_msg: 'You are root, continuing...'
+
+- name: 'Requirements | Check if user provided a valid SSH key'
+  ansible.builtin.assert:
+    that:
+      - bastion_admin_ssh_pubkey is defined
+      - bastion_admin_ssh_pubkey | length > 0
+    fail_msg: 'You must provide a valid SSH key.'
+    success_msg: 'You provided a valid SSH key, continuing...'
+
+- name: 'Requirements | Ensure bastion flags path exists'
+  ansible.builtin.file:
+    path: "{{ bastion_flags_path }}"
+    state: directory
+    mode: 0700

@@ -1,0 +1,16 @@
+---
+
+# The path where The Bastion will be installed
+bastion_path: /opt/bastion
+
+# The path where The Bastion will store its config
+bastion_config_path: /etc/bastion
+
+# Url where to download The Bastion
+bastion_url: https://github.com/ovh/the-bastion/archive/refs/tags/{{ bastion_version }}.tar.gz
+
+# Install version file audit
+bastion_flags_path: "/etc/bastion/flags"
+bastion_version_flag: "{{ bastion_flags_path }}/VERSION"
+bastion_install_flag: "{{ bastion_flags_path }}/INSTALL"
+bastion_admin_flag: "{{ bastion_flags_path }}/ADMIN"

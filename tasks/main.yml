@@ -1,0 +1,10 @@
+---
+
+- name: 'Main | Check the requirements before installing the service'
+  ansible.builtin.import_tasks: requirements.yml
+
+- name: 'Main | Install the service'
+  ansible.builtin.import_tasks: install.yml
+
+- name: 'Main | Configure the service'
+  ansible.builtin.import_tasks: configure.yml

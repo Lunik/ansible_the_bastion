@@ -1,0 +1,27 @@
+---
+
+- name: 'Install | Check if the initial admin as been created'
+  ansible.builtin.stat:
+    path: "{{ bastion_admin_flag }}"
+  register: _bastion_admin_created
+
+- when: not _bastion_admin_created.stat.exists
+  block:
+    - name: 'Install | Create the initial admin'
+      ansible.builtin.expect:
+        command: |
+          {{ bastion_path }}/bin/admin/setup-first-admin-account.sh {{ bastion_admin }} auto
+        responses:
+          Please paste the SSH key you want to add: "{{ bastion_admin_ssh_pubkey}}"
+
+    - name: 'Install | Ensure install flag exists'
+      ansible.builtin.template:
+        src: FLAG.j2
+        dest: "{{ bastion_admin_flag }}"
+        mode: 0600
+
+- name: 'Install | Ensure bastion hostname'
+  ansible.builtin.lineinfile:
+    path: "{{ bastion_config_path }}/bastion.conf"
+    regexp: '"bastionName":'
+    line: '"bastionName": "{{ bastion_hostname }}",'
